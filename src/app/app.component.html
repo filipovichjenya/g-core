@@ -1,10 +1,10 @@
-<h1>
-    {{title}}
-  </h1>
-  
-  <button routerLink="">Home</button>
-  <button routerLink="/info">Info</button>
-  <button routerLink="/favourites">favourites</button>
-  
+<mat-toolbar>
+  <h1>{{title}}</h1>
+  <mat-button-toggle-group appearance="legacy">
+      <mat-button-toggle color="primary" routerLink="">Home</mat-button-toggle>
+      <mat-button-toggle routerLink="/info">Info</mat-button-toggle>
+      <mat-button-toggle routerLink="/favourites">favourites</mat-button-toggle>
+  </mat-button-toggle-group>
+</mat-toolbar>
   
 <router-outlet></router-outlet>
