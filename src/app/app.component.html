@@ -1,10 +1,10 @@
 <mat-toolbar>
   <h1>{{title}}</h1>
   <mat-button-toggle-group appearance="legacy">
-      <mat-button-toggle color="primary" routerLink="">Home</mat-button-toggle>
-      <mat-button-toggle routerLink="/info">Info</mat-button-toggle>
-      <mat-button-toggle routerLink="/favourites">favourites</mat-button-toggle>
+      <mat-button-toggle routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</mat-button-toggle>
+      <mat-button-toggle routerLinkActive="active" routerLink="/info">Info</mat-button-toggle>
+      <mat-button-toggle routerLinkActive="active" routerLink="/favourites">favourites</mat-button-toggle>
   </mat-button-toggle-group>
 </mat-toolbar>
-  
+
 <router-outlet></router-outlet>
