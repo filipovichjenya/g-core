@@ -4,6 +4,9 @@
       <mat-button-toggle routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</mat-button-toggle>
       <mat-button-toggle routerLinkActive="active" routerLink="/info">Info</mat-button-toggle>
       <mat-button-toggle routerLinkActive="active" routerLink="/favourites">favourites</mat-button-toggle>
+
+      <mat-button-toggle (click)='selectLang("ru")'>ru</mat-button-toggle>
+      <mat-button-toggle (click)='selectLang("en")'>en</mat-button-toggle>
   </mat-button-toggle-group>
 </mat-toolbar>
 
