@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { DataService } from './shared/dataService';
+import { LangService } from './shared/lang.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Material
@@ -23,7 +23,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatButtonToggleModule,
     BrowserAnimationsModule
   ],
-  providers: [DataService],
+  providers: [LangService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

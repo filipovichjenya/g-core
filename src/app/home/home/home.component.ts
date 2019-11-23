@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../shared/dataService';
+import { LangService } from '../../shared/lang.service';
 
 
 @Component({
@@ -10,12 +10,14 @@ import { DataService } from '../../shared/dataService';
 export class HomeComponent implements OnInit {
 
   films;
-  constructor(private dataService: DataService) {
+  constructor(private langService: LangService) {
     this.films = [];
   }
 
+  
   ngOnInit() {
-    this.films = this.dataService.getfilms();
+    
+    this.films = this.langService.getfilms();
     console.log(this.films)
   }
 

@@ -7,12 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
-export class DataService {
+export class LangService {
     data = data;
     
     private currentLangSubject = new BehaviorSubject(localStorage.getItem('currentLang'));
     lang = this.currentLangSubject.asObservable();
     
+    
+
     getfilms(){
         return this.data;
     }

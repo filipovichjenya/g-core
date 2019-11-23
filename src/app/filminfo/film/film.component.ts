@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LangService } from '../../shared/lang.service';
 
 @Component({
   selector: 'app-film',
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilmComponent implements OnInit {
 
-  constructor() { }
+  constructor(private langService: LangService) { }
 
+  
   ngOnInit() {
   }
 
