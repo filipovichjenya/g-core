@@ -1,6 +1,4 @@
-import {data} from  './data';
 import { Injectable } from '@angular/core';
-
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -8,18 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LangService {
-    data = data;
-    
+
     private currentLangSubject = new BehaviorSubject(localStorage.getItem('currentLang'));
     lang = this.currentLangSubject.asObservable();
     
-    
-
-    getfilms(){
-        return this.data;
-    }
-
-
 
     //инициализыция языка по умолчанию
     init(){
