@@ -8,4 +8,7 @@ table {
     width: 100%;
   }
 
-  
+  .example-container {
+    height: 400px;
+    overflow: auto;
+  }

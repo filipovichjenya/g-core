@@ -3,7 +3,7 @@ import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
 import { fromEvent, from, of } from 'rxjs';
-import { map, filter, debounceTime, distinctUntilChanged, catchError, mergeMap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinctUntilChanged, catchError, mergeMap,tap } from 'rxjs/operators';
 
 
 //import { LangService } from '../../shared/lang.service';
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   films = null;
+  queryText = 'starwars';
 
   displayedColumns = [['Title', 'title'], ['Release', 'release_date']];
   columns = new FormControl(this.displayedColumns.map(item => item[0]));
@@ -28,10 +29,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private dataService: DataService) { }
 
-  sub1;
+  subscription;
 
-  handlePage(e){
-    console.log(e)
+  handlePage(event){
+    const {pageIndex} = event;
+    this.dataService.getfilms(this.queryText,pageIndex+1).subscribe(response => this.films = response)
   }
 
 
@@ -42,10 +44,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       map(e => e.target.value),
       filter(text => (text !== '')),
       distinctUntilChanged(),
-      mergeMap((text) => from(this.dataService.getfilms(text)))
+      tap(text=>this.queryText = text),
+      mergeMap((text) =>  from(this.dataService.getfilms(text))),     
     )
-    this.sub1 = text$.subscribe(response => {
-      console.log(response)
+    this.subscription = text$.subscribe(response => {
+      console.log(this.queryText)
       return this.films = response
     });
 
@@ -56,6 +59,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngOnDestroy() {
     // this.sub2.unsubscribe();
-    this.sub1.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

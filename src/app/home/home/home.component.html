@@ -15,8 +15,8 @@
         </div>
     </div>
 
-    <div>
-        <table *ngIf="films" mat-table [dataSource]="films.results" class="mat-elevation-z8">
+    <div class="example-container mat-elevation-z8">
+        <table *ngIf="films" mat-table [dataSource]="films.results">
 
             <ng-container  matColumnDef="Title">
                 <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -29,9 +29,9 @@
     
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columns.value"></tr>
+            <tr mat-header-row *matHeaderRowDef="columns.value; sticky: true" ></tr>
             <tr mat-row *matRowDef="let row; columns: columns.value;"></tr>
         </table>
-        <mat-paginator [length]="films['total_results']" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
+        <mat-paginator  [length]="films['total_results']" [pageIndex]="films.page-1" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
     </div>
 </div>
