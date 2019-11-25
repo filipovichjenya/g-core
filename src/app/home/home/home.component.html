@@ -1,26 +1,37 @@
-<div div class='container'>
-    <mat-form-field color="secondary">
-        <input #searchInput type="search" matInput placeholder="Search" value="">
-    </mat-form-field>
-</div>
-<div div class='container'>
-    <mat-form-field>
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="columns" multiple>
-            <mat-option *ngFor="let field of displayedColumns" [value]="field[0]">{{field[0]}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
-<div div class='container'>
-    <table mat-table [dataSource]="films.results" class="mat-elevation-z8">
-        <ng-container *ngFor="let item of displayedColumns" [matColumnDef]="item[0]">
-            <th mat-header-cell *matHeaderCellDef>{{item[0]}}</th>
-            <td mat-cell *matCellDef="let element"> {{element[item[1]]}} </td>
-        </ng-container>
+<div  class="container">
+    <div class="inputContainer">
+        <div>
+            <mat-form-field color="secondary">
+                <input #searchInput type="search" matInput placeholder="Search" value="">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Toppings</mat-label>
+                <mat-select [formControl]="columns" multiple>
+                    <mat-option *ngFor="let field of displayedColumns" [value]="field[0]">{{field[0]}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
 
-        <tr mat-header-row *matHeaderRowDef="columns.value"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns.value;"></tr>
+    <div>
+        <table *ngIf="films" mat-table [dataSource]="films.results" class="mat-elevation-z8">
 
-    </table>
-    <mat-paginator [pageSizeOptions]="[30]" showFirstLastButtons></mat-paginator>
+            <ng-container  matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element"><a href="#">{{element.title}}</a></td>
+
+            </ng-container>
+            <ng-container  matColumnDef="Release">
+                    <th mat-header-cell *matHeaderCellDef>Release</th>
+                    <td mat-cell *matCellDef="let element"> {{element['release_date']}} </td>
+    
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columns.value"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns.value;"></tr>
+        </table>
+        <mat-paginator [length]="films['total_results']" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
+    </div>
 </div>

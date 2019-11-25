@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
-import { fromEvent, from } from 'rxjs';
-import { map, filter, debounceTime, distinctUntilChanged, switchMap, mergeMap } from 'rxjs/operators';
+import { fromEvent, from, of } from 'rxjs';
+import { map, filter, debounceTime, distinctUntilChanged, catchError, mergeMap } from 'rxjs/operators';
 
 
 //import { LangService } from '../../shared/lang.service';
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: false }) input;
 
 
-  films = {};
+  films = null;
 
   displayedColumns = [['Title', 'title'], ['Release', 'release_date']];
   columns = new FormControl(this.displayedColumns.map(item => item[0]));
@@ -28,24 +28,34 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private dataService: DataService) { }
 
-  subscription;
+  sub1;
+
+  handlePage(e){
+    console.log(e)
+  }
+
+
+
   ngAfterViewInit() {
     const text$ = fromEvent<any>(this.input.nativeElement, 'keyup').pipe(
       debounceTime(500),
       map(e => e.target.value),
-      filter(text=>(text !== '')),     
+      filter(text => (text !== '')),
       distinctUntilChanged(),
       mergeMap((text) => from(this.dataService.getfilms(text)))
     )
-    this.subscription = text$.subscribe(response => this.films = response);
+    this.sub1 = text$.subscribe(response => {
+      console.log(response)
+      return this.films = response
+    });
 
   }
   ngOnInit() {
-
-    this.films = this.dataService.getfilms('war');
-    console.log(this.columns.value)
+   this.films = this.dataService.getDefaultFilms();
+    // this.sub2 = from(this.dataService.getfilms('war')).subscribe(res => this.films = res);
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.sub2.unsubscribe();
+    this.sub1.unsubscribe();
   }
 }

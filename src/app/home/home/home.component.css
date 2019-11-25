@@ -1,7 +1,11 @@
-.container{
-    background-color: black;
+.container{    
+    min-height: 100vh;
 }
-::ng-deep .mat-input-element {
-    color: white !important;
-   }
+.inputContainer{
+    display: flex;
+}
+table {
+    width: 100%;
+  }
+
   
