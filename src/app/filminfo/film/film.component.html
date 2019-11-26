@@ -1,2 +1,16 @@
-<p *ngIf="film">{{film.title}}</p>
-<img *ngIf="film" width="125" [src]="imgUrl + film['poster_path']">
+<div *ngIf="film" class="container">
+    <div *ngIf="film['poster_path']; then img else noneimg" class="img-container"></div>
+    <ng-template #img><img  [src]="imgUrl + film['poster_path']"></ng-template>
+    <ng-template #noneimg><img src="assets/img/not-available.png"></ng-template>
+
+    <div class="contant-container">
+        <h2>{{film.title}}</h2>
+        <p class="tagline">{{film.tagline}}</p>
+        <p><span class="title">Genre:</span><span class="genre" *ngFor="let genre of film.genres">{{genre.name}}</span></p>
+        <p><span class="title">Release date:</span>{{film['release_date']}}</p>
+        <p><span class="title">Rating:</span>{{film['vote_average']}}</p>
+        <p *ngIf="film.homepage"><span class="title">Homepage:</span><a target="_blank" [href]="film.homepage" >{{film.title}}</a></p>
+        <app-tag></app-tag>
+    </div>
+    
+</div>

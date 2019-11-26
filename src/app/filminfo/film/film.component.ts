@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FilmComponent implements OnInit {
 
-  
+
   film;
   imgUrl: string = 'https://image.tmdb.org/t/p/w500';
 
@@ -23,10 +23,10 @@ export class FilmComponent implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.dataService.getFilm(id).subscribe(film =>{
+    this.dataService.getFilm(id).subscribe(film => {
       console.log(film)
       this.film = film
-    } );
+    });
   }
 
 }

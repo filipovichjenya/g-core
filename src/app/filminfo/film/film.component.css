@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.container img {
+    width: 250px;
+}
+.img-container,.contant-container{
+    margin: 2em;
+}
+.genre{
+    margin-right: 0.5em;
+    font-size: 0.8em;
+}
+.container h2 {
+    margin-bottom: 0.1em;
+}
+
+.title {
+    font-weight: bold;
+    margin-right: 1em;
+}
+.tagline{
+    font-style: italic; 
+    margin: 0;   
+}
+
+@media (min-width: 992px) {
+    .container{
+        justify-content: start;
+    }
+ }
