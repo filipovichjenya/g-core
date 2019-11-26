@@ -3,7 +3,7 @@ import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
 import { fromEvent, from, of } from 'rxjs';
-import { map, filter, debounceTime, distinctUntilChanged, catchError, mergeMap,tap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinctUntilChanged, catchError,tap,switchMap } from 'rxjs/operators';
 
 
 //import { LangService } from '../../shared/lang.service';
@@ -40,12 +40,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const text$ = fromEvent<any>(this.input.nativeElement, 'keyup').pipe(
-      debounceTime(500),
+      debounceTime(400),
       map(e => e.target.value),
       filter(text => (text !== '')),
       distinctUntilChanged(),
       tap(text=>this.queryText = text),
-      mergeMap((text) =>  from(this.dataService.getfilms(text))),     
+      switchMap((text) =>  from(this.dataService.getfilms(text))),     
     )
     this.subscription = text$.subscribe(response => {
       console.log(this.queryText)

@@ -1,1 +1,2 @@
-<p>film works!</p>
+<p *ngIf="film">{{film.title}}</p>
+<img *ngIf="film" width="125" [src]="imgUrl + film['poster_path']">
