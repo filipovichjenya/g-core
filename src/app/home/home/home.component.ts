@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
-import { fromEvent, from, of } from 'rxjs';
+import { fromEvent, from } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, catchError,tap,switchMap } from 'rxjs/operators';
 
 
