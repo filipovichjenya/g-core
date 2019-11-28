@@ -1,1 +1,15 @@
-<p>tag works!</p>
+<div>
+    <p *ngIf="tags">{{tags.name}}</p>
+
+
+    <form (submit)="createTag($event,inputValue.value)">
+        <input type="text" placeholder="input tag" #inputValue>
+        <button type="submit">Add</button>
+    </form>
+    
+    <button>AddTag</button>
+
+</div>
+
+
+

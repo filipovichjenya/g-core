@@ -1,26 +1,29 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LangService } from './shared/lang.service';
+import { DataService } from './shared/data.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Films library';
   lang;
-  constructor(private langService: LangService) {
+  constructor(private langService: LangService, private dataService: DataService) {
     this.lang = 'en';
   }
 
-  selectLang(lg){
-    if(lg === this.langService.currentLangValue) return;    
+  selectLang(lg) {
+    if (lg === this.langService.currentLangValue) return;
     this.langService.changeLang(lg)
   }
 
   ngOnInit() {
     console.log('ngOnInit App.component')
     this.langService.init();
-    this.langService.lang.subscribe(lg=>this.lang = lg) 
+    this.dataService.initFavouritesLlist();
+    this.langService.lang.subscribe(lg => this.lang = lg)
   }
 }

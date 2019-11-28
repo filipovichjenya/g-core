@@ -10,7 +10,7 @@
         <p><span class="title">Release date:</span>{{film['release_date']}}</p>
         <p><span class="title">Rating:</span>{{film['vote_average']}}</p>
         <p *ngIf="film.homepage"><span class="title">Homepage:</span><a target="_blank" [href]="film.homepage" >{{film.title}}</a></p>
-        <app-tag></app-tag>
+        <app-tag [id]="film.id"></app-tag>
     </div>
     
 </div>

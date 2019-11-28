@@ -3,7 +3,7 @@ import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
 import { fromEvent, from } from 'rxjs';
-import { map, filter, debounceTime, distinctUntilChanged, catchError,tap,switchMap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinctUntilChanged, catchError, tap, switchMap } from 'rxjs/operators';
 
 
 //import { LangService } from '../../shared/lang.service';
@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   subscription;
 
-  handlePage(event){
-    const {pageIndex} = event;
-    this.dataService.getfilms(this.queryText,pageIndex+1).subscribe(response => this.films = response)
+  handlePage(event) {
+    const { pageIndex } = event;
+    this.dataService.getfilms(this.queryText, pageIndex + 1).subscribe(response => this.films = response)
   }
 
 
@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       map(e => e.target.value),
       filter(text => (text !== '')),
       distinctUntilChanged(),
-      tap(text=>this.queryText = text),
-      switchMap((text) =>  from(this.dataService.getfilms(text))),     
+      tap(text => this.queryText = text),
+      switchMap((text) => from(this.dataService.getfilms(text))),
     )
     this.subscription = text$.subscribe(response => {
       console.log(this.queryText)
@@ -54,11 +54,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
   ngOnInit() {
-   this.films = this.dataService.getDefaultFilms();
+    this.films = this.dataService.getDefaultFilms();
     // this.sub2 = from(this.dataService.getfilms('war')).subscribe(res => this.films = res);
   }
   ngOnDestroy() {
-    // this.sub2.unsubscribe();
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
