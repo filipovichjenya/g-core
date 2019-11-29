@@ -25,7 +25,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     AppRoutingModule,
     MatToolbarModule,
     MatButtonToggleModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [LangService, DataService],
   bootstrap: [AppComponent]

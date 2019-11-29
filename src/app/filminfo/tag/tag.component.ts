@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DataService } from '../../shared/data.service';
 import { filter, tap, switchMap } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -16,10 +16,8 @@ export class TagComponent implements OnInit, OnDestroy {
   @Input() id: number;
 
   constructor(private dataService: DataService) {
-    this.tags = [];
-   }
-
-
+    this.tags = new Set();
+  }
 
 
 
@@ -29,13 +27,13 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const $tags = this.dataService.getTags().pipe(      
-      switchMap(item => from(Object.entries(item))), 
+    const $tags = this.dataService.getTags().pipe(
+      switchMap(item => from(Object.entries(item))),
       filter((item: any) => item[1].includes(this.id))
     )
-    this.subscription = $tags.subscribe(tag =>{
-      return this.tags.push(tag[0])
-    } )
+    this.subscription = $tags.subscribe(tag => {
+      return this.tags.add(tag[0])
+    })
   }
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();
