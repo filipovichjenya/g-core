@@ -29,14 +29,12 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const $tags = this.dataService.getTags().pipe(
-      switchMap(item => from(item)),      
-      filter((item: any) => item.IDs.includes(this.id)),
-      tap(el => console.log(el))
+    const $tags = this.dataService.getTags().pipe(      
+      switchMap(item => from(Object.entries(item))), 
+      filter((item: any) => item[1].includes(this.id))
     )
     this.subscription = $tags.subscribe(tag =>{
-      console.log(this.tags)
-      return this.tags.push(tag)
+      return this.tags.push(tag[0])
     } )
   }
   ngOnDestroy() {

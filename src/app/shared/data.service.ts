@@ -44,8 +44,8 @@ export class DataService {
     //tag service
     initFavouritesLlist() {
         if (!this.favouritesLlist.getValue()) {
-            localStorage.setItem('favouritesLlist', JSON.stringify([{ name: '', IDs: [] }]));
-            this.favouritesLlist.next([{ name: '', IDs: [] }])
+            localStorage.setItem('favouritesLlist', JSON.stringify({}));//([{ name: '', IDs: [] }]));
+            this.favouritesLlist.next({});//([{ name: '', IDs: [] }])
         }
     }
 
@@ -56,20 +56,27 @@ export class DataService {
     getCurrentTags() {
         return this.favouritesLlist.getValue();
     }
-    setTagById(id, name) {
-        let tagsList = [...this.favouritesLlist.getValue()];
-        let result = new Set();
-        tagsList.forEach(tag => {
-            if (tag.name === name) {
-                // result.push({ name, IDs: [...tag.IDs, id] })
-            } else {
-                result.add({ name, IDs: [id] })
-            }
+    setTagById(id, tagName) {
+        let tagsList = {...this.favouritesLlist.getValue()}; 
+        if(tagsList[tagName]){
+            const filmIDs = new Set(tagsList[tagName]);
+            filmIDs.add(id);
+            tagsList[tagName] = [...filmIDs]
+        } else{
+            tagsList[tagName] = [id]
+        }
+       
+        // tagsList.forEach(tag => {
+        //     if (tag.name === name) {
+        //         // result.push({ name, IDs: [...tag.IDs, id] })
+        //     } else {
+        //         result.push({ name, IDs: [id] })
+        //     }
 
-        })
-        console.log('result', result)
-        localStorage.setItem('favouritesLlist', JSON.stringify(result));
-        this.favouritesLlist.next(result);
+        // })
+        console.log('result', tagsList)
+        localStorage.setItem('favouritesLlist', JSON.stringify(tagsList));
+        this.favouritesLlist.next(tagsList);
     }
 
 }
