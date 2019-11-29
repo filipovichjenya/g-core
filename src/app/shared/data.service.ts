@@ -65,15 +65,6 @@ export class DataService {
         } else{
             tagsList[tagName] = [id]
         }
-       
-        // tagsList.forEach(tag => {
-        //     if (tag.name === name) {
-        //         // result.push({ name, IDs: [...tag.IDs, id] })
-        //     } else {
-        //         result.push({ name, IDs: [id] })
-        //     }
-
-        // })
         console.log('result', tagsList)
         localStorage.setItem('favouritesLlist', JSON.stringify(tagsList));
         this.favouritesLlist.next(tagsList);
