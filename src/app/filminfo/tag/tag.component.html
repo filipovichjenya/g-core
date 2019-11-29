@@ -1,5 +1,7 @@
 <div>
-    <p *ngIf="tags">{{tags.name}}</p>
+    <p >
+      <span *ngFor="let tag of tags">{{tag.name}}</span>  
+    </p>
 
 
     <form (submit)="createTag($event,inputValue.value)">

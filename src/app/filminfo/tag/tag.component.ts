@@ -15,7 +15,9 @@ export class TagComponent implements OnInit, OnDestroy {
   tags;
   @Input() id: number;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+    this.tags = [];
+   }
 
 
 
@@ -28,10 +30,14 @@ export class TagComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const $tags = this.dataService.getTags().pipe(
-      switchMap(item => from(item)),
-      filter((item: any) => item.IDs.includes(this.id))
+      switchMap(item => from(item)),      
+      filter((item: any) => item.IDs.includes(this.id)),
+      tap(el => console.log(el))
     )
-    this.subscription = $tags.subscribe(tag => this.tags = tag)
+    this.subscription = $tags.subscribe(tag =>{
+      console.log(this.tags)
+      return this.tags.push(tag)
+    } )
   }
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe();

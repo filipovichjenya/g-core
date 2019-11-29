@@ -58,12 +58,12 @@ export class DataService {
     }
     setTagById(id, name) {
         let tagsList = [...this.favouritesLlist.getValue()];
-        let result = [];
+        let result = new Set();
         tagsList.forEach(tag => {
             if (tag.name === name) {
-                result.push({ name, IDs: [...tag.IDs, id] })
+                // result.push({ name, IDs: [...tag.IDs, id] })
             } else {
-                result.push([...tagsList,{ name, IDs: [id] }])
+                result.add({ name, IDs: [id] })
             }
 
         })
