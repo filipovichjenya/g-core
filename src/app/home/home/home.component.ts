@@ -3,7 +3,7 @@ import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
 import { fromEvent, from } from 'rxjs';
-import { map, filter, debounceTime, distinctUntilChanged, catchError, tap, switchMap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinctUntilChanged, tap, switchMap } from 'rxjs/operators';
 
 
 //import { LangService } from '../../shared/lang.service';

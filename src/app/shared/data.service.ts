@@ -44,14 +44,18 @@ export class DataService {
     //tag service
     initFavouritesLlist() {
         if (!this.favouritesLlist.getValue()) {
-            localStorage.setItem('favouritesLlist', JSON.stringify({}));//([{ name: '', IDs: [] }]));
-            this.favouritesLlist.next({});//([{ name: '', IDs: [] }])
+            localStorage.setItem('favouritesLlist', JSON.stringify({}));
+            this.favouritesLlist.next({});
         }
     }
 
     getTags() {
-        console.log('getTags', this.favouritesLlist.getValue())
         return this.favouritesLlist.asObservable();
+    }
+    getCurrentTagNames(){
+        if(this.favouritesLlist.getValue()){
+            return Object.keys(this.favouritesLlist.getValue());
+        }        
     }
     getCurrentTags() {
         return this.favouritesLlist.getValue();
@@ -65,7 +69,17 @@ export class DataService {
         } else{
             tagsList[tagName] = [id]
         }
-        console.log('result', tagsList)
+
+        localStorage.setItem('favouritesLlist', JSON.stringify(tagsList));
+        this.favouritesLlist.next(tagsList);
+    }
+    removeTagById(id,tagName){
+        const tagsList = {...this.favouritesLlist.getValue()};
+
+        const indexTagInArray = tagsList[tagName].indexOf(id);
+        tagsList[tagName].splice(indexTagInArray,1);
+        if(tagsList[tagName].length === 0) delete tagsList[tagName];
+
         localStorage.setItem('favouritesLlist', JSON.stringify(tagsList));
         this.favouritesLlist.next(tagsList);
     }

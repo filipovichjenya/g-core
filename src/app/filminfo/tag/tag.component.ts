@@ -1,7 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DataService } from '../../shared/data.service';
-import { filter, tap, switchMap } from 'rxjs/operators';
-import { from } from 'rxjs';
+
+
+import { FormControl } from '@angular/forms';
+
+// rx js
+import {toArray, filter, switchMap, scan, map, tap, distinct, distinctUntilChanged, mergeAll } from 'rxjs/operators';
+import { from, Observable ,of} from 'rxjs';
 
 
 @Component({
@@ -13,26 +18,37 @@ export class TagComponent implements OnInit, OnDestroy {
 
   subscription;
   tags;
+
+
   @Input() id: number;
+  tagInput: FormControl = new FormControl('');
 
   constructor(private dataService: DataService) {
-    this.tags = new Set();
+    this.tags = [];
   }
 
 
 
-  createTag(event: Event, value: string) {
-    event.preventDefault();
-    this.dataService.setTagById(this.id, value);
+  createTag() {
+    if (this.tagInput.value) {
+      this.dataService.setTagById(this.id, this.tagInput.value);
+      this.tagInput.setValue('');
+    }
+  }
+  removeTag(tag) {
+    this.dataService.removeTagById(this.id, tag);
   }
 
   ngOnInit() {
     const $tags = this.dataService.getTags().pipe(
-      switchMap(item => from(Object.entries(item))),
-      filter((item: any) => item[1].includes(this.id))
-    )
-    this.subscription = $tags.subscribe(tag => {
-      return this.tags.add(tag[0])
+      map(item=>from(Object.entries(item)).pipe(
+        filter((item: any) => item[1].includes(this.id)),
+        map(item=>item[0]),
+        toArray())),
+      mergeAll()
+      )
+    this.subscription = $tags.subscribe(tags => {
+      return this.tags = tags
     })
   }
   ngOnDestroy() {
