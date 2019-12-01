@@ -29,6 +29,19 @@ export class FavouritesComponent implements OnInit, OnDestroy {
 
 
    handleSelect(){
+    // var test = [11, 4, 1,1,1, 5, 6, 4,4,];
+    // let count = 3;
+    // let obj2 = test.filter((elem, index, arr) => index !== arr.indexOf(elem) || index !== arr.lastIndexOf(elem)).reduce((acc, el) => {
+    //     acc[el] = (acc[el] || 0) + 1;
+    //     return acc;
+    //   }, {});
+      
+    //  let result = Object.keys(obj2).filter(el=>obj2[el] === count);
+    //  console.log(result)
+    
+
+
+     //const tagCount = this.tagsSelected.value.length
      console.log(this.tagsSelected.value)
    }
 
