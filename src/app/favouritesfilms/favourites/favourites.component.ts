@@ -41,8 +41,11 @@ export class FavouritesComponent implements OnInit, OnDestroy {
     
 
 
-     //const tagCount = this.tagsSelected.value.length
-     console.log(this.tagsSelected.value)
+     const tagCount = this.tagsSelected.value;
+     const filmsData = this.dataService.getCurrentTags();
+     const matchedIDs;
+     tagCount.forEach
+     console.log(this.tagsSelected.value.length)
    }
 
 
