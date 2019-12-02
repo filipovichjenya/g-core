@@ -5,8 +5,8 @@ import { DataService } from '../../shared/data.service';
 import { FormControl } from '@angular/forms';
 
 // rx js
-import {toArray, filter, switchMap, scan, map, tap, distinct, distinctUntilChanged, mergeAll } from 'rxjs/operators';
-import { from, Observable ,of} from 'rxjs';
+import {toArray, filter, map, mergeAll } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 
 @Component({

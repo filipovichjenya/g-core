@@ -1,7 +1,7 @@
 import { data } from './data';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { of, from, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
@@ -23,7 +23,6 @@ export class DataService {
     getfilms(query, page = 1) {
         return this.http.get(`${this.apiUrl}?api_key=${this.apiKey}&query=${query}&page=${page}&include_adult=false`).pipe(
             catchError(err => {
-                console.log(err)
                 return of(null)
             })
         );
@@ -31,7 +30,6 @@ export class DataService {
     getFilm(id) {
         return this.http.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`).pipe(
             catchError(err => {
-                console.log(err)
                 return of(null)
             })
         );

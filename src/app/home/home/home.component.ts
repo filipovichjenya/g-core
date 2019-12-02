@@ -52,7 +52,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       switchMap((text) => from(this.dataService.getfilms(text))),
     )
     this.subscription = text$.subscribe(response => {
-      console.log(this.queryText)
       return this.films = response
     });
   }

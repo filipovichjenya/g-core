@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../shared/data.service';
 
 import { FormControl } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.css']
 })
-export class FavouritesComponent implements OnInit, OnDestroy {
+export class FavouritesComponent implements OnInit {
   
   subscription;
   filmsList;
@@ -42,9 +42,5 @@ export class FavouritesComponent implements OnInit, OnDestroy {
 
    ngOnInit() {
      this.tagsList = this.dataService.getCurrentTagNames();
-    
   }
-  ngOnDestroy() {
-  }
-
 }

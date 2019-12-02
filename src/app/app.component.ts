@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit App.component')
     this.langService.init();
     this.dataService.initFavouritesLlist();
     this.langService.lang.subscribe(lg => this.lang = lg)
