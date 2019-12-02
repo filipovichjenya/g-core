@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./favourites.component.css']
 })
 export class FavouritesComponent implements OnInit {
-  
+
   subscription;
   filmsList;
 
@@ -20,27 +20,44 @@ export class FavouritesComponent implements OnInit {
   constructor(private dataService: DataService) {
     this.filmsList = [];
     this.tagsList = [];
-   }
+  }
 
 
-   handleSelect(){
-     const selectTags = this.tagsSelected.value;     
-     const filmsData = this.dataService.getCurrentTags();
-     let matchedIDs = []; 
-     selectTags.forEach(el=> matchedIDs = [...matchedIDs,...filmsData[el]]);
-     if(selectTags.length === 1){        
-        this.filmsList = matchedIDs.map(el=>el.split('_'));  
-     } else{
-      let resultFilms = matchedIDs.filter((elem, index, arr) => index !== arr.indexOf(elem) || index !== arr.lastIndexOf(elem)).reduce((acc, el) => {
-        acc[el] = (acc[el] || 0) + 1;
-        return acc;
-      }, {});
-       this.filmsList = Object.keys(resultFilms).filter(el=>resultFilms[el] === selectTags.length).map(el=>el.split('_')); 
-     }     
-   }
+  handleSelect() {
+    const selectedTags: string[] = this.tagsSelected.value;
+    if (selectedTags.length === 0) return this.filmsList = [];
+    const filmsData = this.dataService.getCurrentTags();
+    
+    let filmsForSearch: any[] = selectedTags.map(el => [...filmsData[el]]);
 
 
-   ngOnInit() {
-     this.tagsList = this.dataService.getCurrentTagNames();
+    if (selectedTags.length === 1) {
+      this.filmsList = filmsData[selectedTags[0]].map(el => el.split('_'));
+    } else {
+      let searchArr: any = filmsForSearch[0];
+      let indexForRemove = 0;
+      filmsForSearch.forEach((filmsByTag: string[], index) => {
+        if (filmsByTag.length < searchArr.length) {
+          searchArr = filmsByTag;
+          indexForRemove = index;
+        }
+      });
+
+      filmsForSearch.splice(indexForRemove, 1);
+      for (let i = searchArr.length - 1; i >= 0; i--) {
+        for (let index = 0; index < filmsForSearch.length; index++) {
+          if (!filmsForSearch[index].includes(searchArr[i])) {
+            searchArr.splice(i, 1);
+            break;
+          }
+        }
+      }
+      this.filmsList = searchArr.map(el => el.split('_'));
+    }
+  }
+
+
+  ngOnInit() {
+    this.tagsList = this.dataService.getCurrentTagNames();
   }
 }
