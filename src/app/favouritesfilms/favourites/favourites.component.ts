@@ -1,12 +1,7 @@
-import { Component, OnInit, Input, OnDestroy, ɵConsole } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../shared/data.service';
 
 import { FormControl } from '@angular/forms';
-
-// rx js
-import {tap, filter,map,toArray,mergeAll,switchMap,distinct} from 'rxjs/operators';
-import { from } from 'rxjs';
-
 
 
 @Component({
@@ -29,35 +24,27 @@ export class FavouritesComponent implements OnInit, OnDestroy {
 
 
    handleSelect(){
-    // var test = [11, 4, 1,1,1, 5, 6, 4,4,];
-    // let count = 3;
-    // let obj2 = test.filter((elem, index, arr) => index !== arr.indexOf(elem) || index !== arr.lastIndexOf(elem)).reduce((acc, el) => {
-    //     acc[el] = (acc[el] || 0) + 1;
-    //     return acc;
-    //   }, {});
-      
-    //  let result = Object.keys(obj2).filter(el=>obj2[el] === count);
-    //  console.log(result)
-    
-
-
-     const tagCount = this.tagsSelected.value;
+     const selectTags = this.tagsSelected.value;     
      const filmsData = this.dataService.getCurrentTags();
-     const matchedIDs;
-     tagCount.forEach
-     console.log(this.tagsSelected.value.length)
+     let matchedIDs = []; 
+     selectTags.forEach(el=> matchedIDs = [...matchedIDs,...filmsData[el]]);
+     if(selectTags.length === 1){        
+        this.filmsList = matchedIDs.map(el=>el.split('_'));  
+     } else{
+      let resultFilms = matchedIDs.filter((elem, index, arr) => index !== arr.indexOf(elem) || index !== arr.lastIndexOf(elem)).reduce((acc, el) => {
+        acc[el] = (acc[el] || 0) + 1;
+        return acc;
+      }, {});
+       this.filmsList = Object.keys(resultFilms).filter(el=>resultFilms[el] === selectTags.length).map(el=>el.split('_')); 
+     }     
    }
 
 
    ngOnInit() {
      this.tagsList = this.dataService.getCurrentTagNames();
-     const filter$ = this.dataService.getTags().pipe(
-       tap(el=>console.log(el))
-     )
-     this.subscription = filter$.subscribe(res=>console.log(res))
+    
   }
   ngOnDestroy() {
-    if(this.subscription) this.subscription.unsubscribe();
   }
 
 }

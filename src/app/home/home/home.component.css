@@ -1,6 +1,4 @@
-.container{    
-    min-height: 100vh;
-}
+
 .inputContainer{
     display: flex;
 }
@@ -11,4 +9,14 @@ table {
   .example-container {
     height: 400px;
     overflow: auto;
+  } 
+
+  .container{
+    height: 100%;
+    
   }
+
+  :host {
+    height: 100%;
+}
+  

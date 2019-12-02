@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -24,8 +24,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
-    MatButtonToggleModule,
     BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [LangService, DataService],
   bootstrap: [AppComponent]

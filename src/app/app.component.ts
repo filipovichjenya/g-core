@@ -9,7 +9,7 @@ import { DataService } from './shared/data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Films library';
+  
   lang;
   constructor(private langService: LangService, private dataService: DataService) {
     this.lang = 'en';

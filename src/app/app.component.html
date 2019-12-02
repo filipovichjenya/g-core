@@ -1,12 +1,26 @@
-<mat-toolbar>
-  <h1>{{title}}</h1>
-  <mat-button-toggle-group appearance="legacy">
-      <mat-button-toggle routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</mat-button-toggle>
-      <mat-button-toggle routerLinkActive="active" routerLink="/favourites">favourites</mat-button-toggle>
+<div class="container">
+  <div *ngIf="lang === 'en'; then thenBlock else elseBlock"></div>
+  <router-outlet></router-outlet>
+</div>
 
-      <mat-button-toggle (click)='selectLang("ru")'>ru</mat-button-toggle>
-      <mat-button-toggle (click)='selectLang("en")'>en</mat-button-toggle>
-  </mat-button-toggle-group>
-</mat-toolbar>
 
-<router-outlet></router-outlet>
+
+<ng-template #elseBlock>
+  <mat-toolbar>
+    <h1>Films library</h1>
+    <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">На главную</a>
+    <a class="link" routerLinkActive="active" routerLink="/favourites">Избранное</a>
+    <button mat-button (click)='selectLang("ru")'>ру</button>
+    <button mat-button (click)='selectLang("en")'>англ</button>
+  </mat-toolbar>  
+</ng-template>  
+
+<ng-template #thenBlock>
+  <mat-toolbar>
+    <h1>Films library</h1>
+    <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</a>
+    <a class="link" routerLinkActive="active" routerLink="/favourites">favourites</a>
+    <button mat-button (click)='selectLang("ru")'>ru</button>
+    <button mat-button (click)='selectLang("en")'>en</button>
+  </mat-toolbar> 
+</ng-template>  

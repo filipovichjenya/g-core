@@ -1,20 +1,25 @@
 <div  class="container">
     <div class="inputContainer">
         <div>
-            <mat-form-field color="secondary">
+            <mat-form-field *ngIf="lang === 'en' else ru"color="secondary">
                 <input #searchInput type="search" matInput placeholder="Search" value="">
             </mat-form-field>
+            <ng-template #ru>  
+                <mat-form-field color="secondary">
+                    <input #searchInput type="search" matInput placeholder="Поиск" value="">
+                </mat-form-field>
+            </ng-template> 
         </div>
         <div>
             <mat-form-field>
-                <mat-label>Toppings</mat-label>
+                <mat-label>Collumns</mat-label>
                 <mat-select [formControl]="columns" multiple>
-                    <mat-option *ngFor="let field of displayedColumns" [value]="field[0]">{{field[0]}}</mat-option>
+                    <mat-option *ngFor="let field of displayedColumns" [value]="field">{{field}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
     </div>
-    <div class="example-container mat-elevation-z8">
+    <div class="example-container ">
         <table *ngIf="films" mat-table [dataSource]="films.results">
 
             <ng-container  matColumnDef="Title">
@@ -27,10 +32,16 @@
                     <td mat-cell *matCellDef="let element"> {{element['release_date']}} </td>
     
             </ng-container>
+            <ng-container  matColumnDef="Rating">
+                    <th mat-header-cell *matHeaderCellDef>Rating</th>
+                    <td mat-cell *matCellDef="let element"> {{element['vote_average']}} </td>
+    
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columns.value; sticky: true" ></tr>
             <tr mat-row *matRowDef="let row; columns: columns.value;"></tr>
         </table>
-        <mat-paginator  [length]="films['total_results']" [pageIndex]="films.page-1" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
+       
     </div>
+    <mat-paginator  [length]="films['total_results']" [pageIndex]="films.page-1" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
 </div>

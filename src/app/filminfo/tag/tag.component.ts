@@ -31,7 +31,7 @@ export class TagComponent implements OnInit, OnDestroy {
 
   createTag() {
     if (this.tagInput.value) {
-      this.dataService.setTagById(this.id, this.tagInput.value);
+      this.dataService.setTagById(this.id, this.tagInput.value.replace(/[\s+\W]/g,'').toLowerCase());
       this.tagInput.setValue('');
     }
   }
