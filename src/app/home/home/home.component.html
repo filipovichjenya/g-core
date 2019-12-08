@@ -1,11 +1,11 @@
 <div  class="container">
     <div class="inputContainer">
         <div>
-            <mat-form-field *ngIf="lang === 'en' else ru"color="secondary">
+            <mat-form-field *ngIf="lang === 'en' else ru">
                 <input #searchInput type="search" matInput placeholder="Search" value="">
             </mat-form-field>
             <ng-template #ru>  
-                <mat-form-field color="secondary">
+                <mat-form-field>
                     <input #searchInput type="search" matInput placeholder="Поиск" value="">
                 </mat-form-field>
             </ng-template> 
@@ -19,8 +19,8 @@
             </mat-form-field>
         </div>
     </div>
-    <div class="example-container ">
-        <table *ngIf="films" mat-table [dataSource]="films.results">
+    <div class="tableContainer">
+        <table *ngIf="films" mat-table  [dataSource]="films.results">
 
             <ng-container  matColumnDef="Title">
                 <th mat-header-cell *matHeaderCellDef>Title</th>
@@ -43,5 +43,7 @@
         </table>
        
     </div>
-    <mat-paginator  [length]="films['total_results']" [pageIndex]="films.page-1" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
+    <div class="paginator">
+        <mat-paginator  [length]="films['total_results']" [pageIndex]="films.page-1" [pageSizeOptions]="[20]" (page)="handlePage($event)"></mat-paginator>
+    </div>    
 </div>

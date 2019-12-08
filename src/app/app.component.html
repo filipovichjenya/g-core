@@ -1,26 +1,39 @@
 <div class="container">
-  <div *ngIf="lang === 'en'; then thenBlock else elseBlock"></div>
-  <router-outlet></router-outlet>
+  <div class="header">
+    <div class="logo"><h1>Films library</h1></div>
+    <div class="nav">
+        <div *ngIf="lang === 'en'; then thenBlock else elseBlock"></div>
+    </div>
+    <div>
+        <div *ngIf="lang === 'en'; then thenBtns else elseBtns"></div>
+    </div> 
+  </div>   
+  <div class="contant"><router-outlet></router-outlet></div>
 </div>
 
 
 
+<ng-template #thenBtns>
+    <button (click)='selectLang("ru")'>ру</button>
+    <button (click)='selectLang("en")'>англ</button>  
+</ng-template>  
+<ng-template #elseBtns>
+    <button (click)='selectLang("ru")'>ru</button>
+    <button (click)='selectLang("en")'>en</button> 
+</ng-template>  
+
+
+
 <ng-template #elseBlock>
-  <mat-toolbar>
-    <h1>Films library</h1>
-    <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">На главную</a>
-    <a class="link" routerLinkActive="active" routerLink="/favourites">Избранное</a>
-    <button mat-button (click)='selectLang("ru")'>ру</button>
-    <button mat-button (click)='selectLang("en")'>англ</button>
-  </mat-toolbar>  
+  <ul>
+      <li> <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">На главную</a></li>
+      <li><a class="link" routerLinkActive="active" routerLink="/favourites">Избранное</a></li>
+  </ul>   
 </ng-template>  
 
 <ng-template #thenBlock>
-  <mat-toolbar>
-    <h1>Films library</h1>
-    <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</a>
-    <a class="link" routerLinkActive="active" routerLink="/favourites">favourites</a>
-    <button mat-button (click)='selectLang("ru")'>ru</button>
-    <button mat-button (click)='selectLang("en")'>en</button>
-  </mat-toolbar> 
+  <ul>
+      <li><a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</a></li>
+      <li><a class="link" routerLinkActive="active" routerLink="/favourites">favourites</a></li>
+  </ul>  
 </ng-template>  

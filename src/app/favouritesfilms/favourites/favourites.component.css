@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.list{
+    color: whitesmoke;    
+}
+.list ul{
+    list-style: none;
+}
