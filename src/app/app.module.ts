@@ -10,6 +10,7 @@ import { LangService } from './shared/lang.service';
 import { DataService } from './shared/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
