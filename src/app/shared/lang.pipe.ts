@@ -8,15 +8,15 @@ import { en } from './TranslationStorage/en';
     name: 'translate'
 })
 export class PipeTranslate implements PipeTransform {
-    transform(value: string, lang: string, contant: string): string {
+    transform(value: string, lang: string, content: string): string {
         let result: string = value;
         switch (lang) {
             case 'ru':
-                result = ru[contant]
+                result = ru[content]
                 break;
         
             case 'en':
-                result = en[contant]
+                result = en[content]
                 break;
         }
         return result;
