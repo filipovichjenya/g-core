@@ -4,10 +4,17 @@
       <h1>Films library</h1>
     </div>
     <div class="nav">
-      <div *ngIf="lang === 'en'; then thenBlock else elseBlock"></div>
+      <ul>
+        <li> <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+            routerLink="">{{ Home | translate:lang:'homeLink'}}</a>
+        </li>
+        <li><a class="link" routerLinkActive="active"
+            routerLink="/favourites">{{Favourites | translate:lang:'favouritesLink'}}</a></li>
+      </ul>
     </div>
     <div>
-      <div *ngIf="lang === 'en'; then thenBtns else elseBtns"></div>
+      <button class="btn" (click)='selectLang("ru")'>{{ru | translate:lang:'selectRu'}}</button>
+      <button class="btn" (click)='selectLang("en")'>{{en | translate:lang:'selectEn'}}</button>
     </div>
   </div>
   <div class="contant">
@@ -17,28 +24,3 @@
 
 
 
-<ng-template #thenBtns>
-  <button class="btn" (click)='selectLang("ru")'>ру</button>
-  <button class="btn" (click)='selectLang("en")'>англ</button>
-</ng-template>
-<ng-template #elseBtns>
-  <button class="btn" (click)='selectLang("ru")'>ru</button>
-  <button class="btn" (click)='selectLang("en")'>en</button>
-</ng-template>
-
-
-
-<ng-template #elseBlock>
-  <ul>
-    <li> <a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">На главную</a>
-    </li>
-    <li><a class="link" routerLinkActive="active" routerLink="/favourites">Избранное</a></li>
-  </ul>
-</ng-template>
-
-<ng-template #thenBlock>
-  <ul>
-    <li><a class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</a></li>
-    <li><a class="link" routerLinkActive="active" routerLink="/favourites">favourites</a></li>
-  </ul>
-</ng-template>
