@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DataService } from '../../shared/data.service';
+import { LangService } from '../../shared/lang.service';
 
 
 import { FormControl } from '@angular/forms';
@@ -17,18 +18,19 @@ import { from } from 'rxjs';
 export class TagComponent implements OnInit, OnDestroy {
 
   subscription;
+  lgSubscription;
   tags;
+  lang: string;
 
 
   @Input() id: number;
   tagInput: FormControl = new FormControl('');
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,private langService: LangService) {
     this.tags = [];
+    this.lang = 'en';
   }
-
-
-
+  
   createTag() {
     if (this.tagInput.value) {
       this.dataService.setTagById(this.id, this.tagInput.value.replace(/[\s+\W]/g,'').toLowerCase());
@@ -40,6 +42,7 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.lgSubscription = this.langService.lang.subscribe(lg => this.lang = lg);
     const $tags = this.dataService.getTags().pipe(
       map(item=>from(Object.entries(item)).pipe(
         filter((item: any) => item[1].includes(this.id)),
@@ -52,7 +55,8 @@ export class TagComponent implements OnInit, OnDestroy {
     })
   }
   ngOnDestroy() {
+    if (this.lgSubscription) this.lgSubscription.unsubscribe();
     if (this.subscription) this.subscription.unsubscribe();
   }
-
+  
 }

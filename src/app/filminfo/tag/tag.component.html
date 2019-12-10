@@ -10,9 +10,9 @@
   <div>
     <form (ngSubmit)="createTag()">
       <mat-form-field color="secondary">
-        <input type="text" matInput placeholder="Input tag" [formControl]="tagInput">
+        <input type="text" matInput [placeholder]="'Input tag name' | translate:lang:'inputTag'" [formControl]="tagInput">
       </mat-form-field>
-      <button mat-button type="submit">Add</button>
+      <button mat-button type="submit">{{Add | translate:lang:'addTag'}}</button>
     </form>
   </div>
 </div>

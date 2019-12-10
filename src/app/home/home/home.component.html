@@ -1,18 +1,13 @@
 <div  class="container">
     <div class="inputContainer">
         <div>
-            <mat-form-field *ngIf="lang === 'en' else ru">
-                <input #searchInput type="search" matInput placeholder="Search" value="">
+            <mat-form-field>
+                <input #searchInput type="search" matInput [placeholder]="Search | translate:lang:'searchInput'" value="">
             </mat-form-field>
-            <ng-template #ru>  
-                <mat-form-field>
-                    <input #searchInput type="search" matInput placeholder="Поиск" value="">
-                </mat-form-field>
-            </ng-template> 
         </div>
         <div>
             <mat-form-field>
-                <mat-label>Collumns</mat-label>
+                <mat-label>{{Collumns | translate:lang:'tableSelectLabel'}}</mat-label>
                 <mat-select [formControl]="columns" multiple>
                     <mat-option *ngFor="let field of displayedColumns" [value]="field">{{field}}</mat-option>
                 </mat-select>

@@ -1,24 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule} from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 //material
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
 @NgModule({
   declarations: [FavouritesComponent],
   imports: [
-    CommonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
+    SharedModule,
     RouterModule.forChild([
-      {path: '',component: FavouritesComponent}
+      { path: '', component: FavouritesComponent }
     ])
   ]
 })

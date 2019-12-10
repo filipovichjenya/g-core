@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../shared/data.service';
+import { LangService } from '../../shared/lang.service';
 
 import { FormControl } from '@angular/forms';
 
@@ -9,17 +10,19 @@ import { FormControl } from '@angular/forms';
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.css']
 })
-export class FavouritesComponent implements OnInit {
-
+export class FavouritesComponent implements OnInit, OnDestroy {
+  lgSubscription;
   subscription;
   filmsList;
 
   tagsSelected = new FormControl();
   tagsList: string[];
+  lang: string;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private langService: LangService) {
     this.filmsList = [];
     this.tagsList = [];
+    this.lang = 'en';
   }
 
 
@@ -27,7 +30,7 @@ export class FavouritesComponent implements OnInit {
     const selectedTags: string[] = this.tagsSelected.value;
     if (selectedTags.length === 0) return this.filmsList = [];
     const filmsData = this.dataService.getCurrentTags();
-    
+
     let filmsForSearch: any[] = selectedTags.map(el => [...filmsData[el]]);
 
 
@@ -58,6 +61,10 @@ export class FavouritesComponent implements OnInit {
 
 
   ngOnInit() {
+    this.lgSubscription = this.langService.lang.subscribe(lg => this.lang = lg);
     this.tagsList = this.dataService.getCurrentTagNames();
+  }
+  ngOnDestroy() {
+    if (this.lgSubscription) this.lgSubscription.unsubscribe();
   }
 }

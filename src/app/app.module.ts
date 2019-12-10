@@ -2,8 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-
-import { PipeTranslate } from './shared/lang.pipe';
+import { SharedModule } from './shared/shared.module';
 
 
 import { AppComponent } from './app.component';
@@ -20,9 +19,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    AppComponent,PipeTranslate
+    AppComponent
   ],
   imports: [
+    SharedModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
